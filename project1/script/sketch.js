@@ -48,7 +48,7 @@ for (let i = 0; i < money.length; i++) {
   setTimeout(processMoney.bind(null, i), delay);
 }
 function draw() {
-  image(img, 40, 30);
+  image(img, 40, 30, img.width * 0.8, img.height * 0.8);
   /// 회차
   fill(225);
   noStroke();
@@ -80,7 +80,7 @@ function draw() {
   line(45, height - 55, width - 45, height - 55);
 
   let numDays = Math.floor((width - 45) / 40) + 1;
-
+  //요일
   for (let x = 0; x < numDays; x++) {
     let days = ['FRI', 'SAT', 'SUN', 'MON', 'TUE', 'WED'];
     fill(255);

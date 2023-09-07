@@ -9,6 +9,7 @@ class TrimLine {
     this.rad = rad;
     this.chain = [];
     for (let cnt = 0; cnt < 10; cnt++) {
+      //파티클 터지는 그  순간
       this.chain.push(createVector(this.pos.x, this.pos.y));
     }
   }
@@ -38,6 +39,7 @@ class TrimLine {
   }
 
   update() {
+    this.updateChain();
     const dist = this.tarPos.copy();
     dist.sub(this.originPos);
     dist.mult(this.easing(this.getNormalizedTime()));

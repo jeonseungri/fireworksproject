@@ -22,7 +22,7 @@ h3,
 h4,
 h5,
 h6 {
-  max-width: 61.674ch;
+  max-width: 30.837ch * 2;
   line-height: 1.5;
   overflow-wrap: break-word;
   text-wrap: balance;
@@ -48,31 +48,12 @@ video {
   width: 90rem;
   margin-inline: auto;
   padding-inline: 1.25rem;
+
+  // &--width-fixed {
+  //   width: 70rem;
+  //   padding-inline: 5rem;
+  // }
 }
 
-/* @media (width > 45rem) {
-  .container {
-    padding-inline: 2.5rem;
-    max-width: 85rem;
-  }
+.center {
 }
-
-@media (width > 70rem) {
-  .container {
-    max-width: 90rem;
-    padding-inline: 5rem;
-  }
-}
-.week .center ol > li {
-  max-width: 61.674ch;
-  margin-bottom: 0.25rem;
-}
-
-.week .center ol > li:last-child {
-  margin-bottom: unset;
-}
-
-canvas {
-  display: block;
-  background-color: black;
-} */
