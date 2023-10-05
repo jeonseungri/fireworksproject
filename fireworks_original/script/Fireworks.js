@@ -36,11 +36,14 @@ class Fireworks {
         ) {
           // 각 숫자를 각도로 변환
           const angle =
-            (TAU / 6) * eachLottoSequence[eachNumberIdx] - (TAU / 360) * 90;
+            eachGroupIdx * (TAU / 5) +
+            (TAU / 30) * eachNumberIdx -
+            (TAU / 360) * 90;
           // 각 숫자를 속도로 변환
           const speed =
             fireworksVelMin +
-            (howManyMached / 6) * (fireworksVelMax - fireworksVelMin);
+            (eachLottoSequence[eachNumberIdx] / 9) *
+              (fireworksVelMax - fireworksVelMin);
           // 1짜리 각도 0인 벡터 생성
           const vel = createVector(1, 0);
           // 벡터를 회전

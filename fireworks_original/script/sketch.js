@@ -1,9 +1,9 @@
 const fireworks = [];
 
-let img;
-function preload() {
-  img = loadImage('Lottologo.png');
-}
+// let img;
+// function preload() {
+//   img = loadImage('Lottologo.png');
+// }
 
 let timeSpeed = 1;
 let timeInFrame = 0;
@@ -11,17 +11,7 @@ const eachDayInTime = 120; // 몇이 증가하면 하루가 지난다? 1초 = 60
 let todayNth = 0; //오늘 번호
 let lastDayNth = 0; //지난번호
 let weekNth = 0; //이번주
-// let lottoTime = [
-//   '155th',
-//   '156th',
-//   '157th',
-//   '158th',
-//   '159th',
-//   '160th',
-//   '161st',
-//   '162nd',
-// ];
-// let word;
+
 // 좌우 마진
 const mx = [80, 80]; // mx[0], mx[1]
 // 각 요일별 폭죽 x좌표
@@ -33,7 +23,7 @@ const fireworksHMax = 610;
 // 폭죽의 최소 속도
 const fireworksVelMin = 50;
 // 폭죽의 최대 속도
-const fireworksVelMax = 300;
+const fireworksVelMax = 100;
 let gravity;
 const windMag = 0.1; //잔상
 const frictionC = 0.5; //크기
@@ -53,10 +43,10 @@ function setup() {
     eachDayX[idx] = ((width - mx[0] - mx[1]) / 7) * (idx + 1) + mx[0];
   }
 
-  gravity = createVector(0, 0.5);
-  console.log(eachDayX);
+  gravity = createVector(0, 0.1);
+  // console.log(eachDayX);
 
-  background(255);
+  // background(255);
 
   pg = createGraphics(width, height);
 }
@@ -111,10 +101,25 @@ const timer = (adder) => {
       // 각 조별로 계산이 끝난 결과를 데이터베이스에 추가
       todaysData.sumHowManyMached = sumHowManyMached;
       // console.log(todaysData, thisWeekWinningNum);
+      // console.log(todaysData.howManyMached);
+      calcMoney(todaysData.howManyMached);
+      console.log(money);
       fireworks.push(new Fireworks(todaysData, thisWeekWinningNum));
     }
   }
   lastDayNth = calcedTodayNth;
+};
+
+let money = 0;
+
+const calcMoney = (matchNumArry) => {
+  matchNumArry.forEach((eachMatchNum) => {
+    if (eachMatchNum === 1) {
+      money += 1000;
+    } else if (eachMatchNum === 2) {
+      money += 5000;
+    }
+  });
 };
 
 const comparingWinningNum = (aSequence, winningSequence) => {
@@ -127,16 +132,16 @@ const comparingWinningNum = (aSequence, winningSequence) => {
 };
 
 function draw() {
-  image(img, 40, 30, img.width * 0.8, img.height * 0.8);
+  // image(img, 40, 30, img.width * 0.8, img.height * 0.8);
 
   for (let idx = fireworks.length - 1; idx >= 0; idx--) {
     fireworks[idx].update(gravity, windMag, frictionC);
     if (fireworks[idx].isDead) {
       fireworks.splice(idx, 1);
-      console.log(fireworks.length);
+      // console.log(fireworks.length);
     }
   }
-  background(0, 25);
+  background(0, 10);
   timer(timeSpeed);
   for (let idx = fireworks.length - 1; idx >= 0; idx--) {
     fireworks[idx].display();
@@ -155,6 +160,7 @@ function draw() {
 
   pg.textSize(14);
   pg.text(`${weekNth} 주    ${todayNth} 일째`, width / 2, 50);
+
   //행운 점수
   const numLines = Math.floor(height / 10) + 1;
   const dashLength = 5; // 점선의 간격
@@ -184,6 +190,8 @@ function draw() {
 
     pg.noStroke();
   }
+  pg.textAlign(RIGHT);
+  pg.text(`${money}원`, width - 200, 20);
 
   image(pg, 0, 0);
 }
